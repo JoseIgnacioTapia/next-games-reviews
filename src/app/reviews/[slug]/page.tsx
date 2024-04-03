@@ -1,8 +1,17 @@
 import Heading from "@/components/Heading";
 import { getReview } from "@/lib/reviews";
 
-async function StardeValleyPage() {
-  const review = await getReview("stardew-valley");
+interface ReviewPageProps {
+  params: {
+    slug: string; // El valor del slug, en este caso 'hollow-knight'
+  };
+  searchParams: Record<string, string>; // Un objeto vacío en este caso
+}
+
+async function ReviewPage(props: ReviewPageProps) {
+  const { slug } = props.params;
+
+  const review = await getReview(slug);
 
   return (
     <>
@@ -23,4 +32,4 @@ async function StardeValleyPage() {
   );
 }
 
-export default StardeValleyPage;
+export default ReviewPage;

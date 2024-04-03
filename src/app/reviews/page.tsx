@@ -21,7 +21,7 @@ export default function ReviewsPage() {
           </Link>
         </li>
         <li className="bg-white border rounded shadow w-80 hover:shadow-xl">
-          <Link href="/reviews/stardev-valley">
+          <Link href="/reviews/stardew-valley">
             <img
               src="/images/stardew-valley.jpg"
               alt=""
