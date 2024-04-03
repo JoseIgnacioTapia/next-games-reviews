@@ -1,17 +1,13 @@
-import { readFile } from "node:fs/promises";
-import { marked } from "marked";
 import Heading from "@/components/Heading";
+import { getReview } from "@/lib/reviews";
 
 async function StardeValleyPage() {
-  const text = await readFile(
-    "./src/content/reviews/stardew-valley.md",
-    "utf8"
-  );
-  const html = marked(text);
+  const review = await getReview("stardew-valley");
 
   return (
     <>
-      <Heading>Stardew Valley</Heading>
+      <Heading>{review.title}</Heading>
+      <p className="pb-2 italic">{review.date}</p>
       <img
         src="/images/stardew-valley.jpg"
         alt=""
@@ -20,7 +16,7 @@ async function StardeValleyPage() {
         className="mb-2 rounded"
       />
       <article
-        dangerouslySetInnerHTML={{ __html: html }}
+        dangerouslySetInnerHTML={{ __html: review.body }}
         className="max-w-screen-sm prose prose-slate"
       />
     </>
