@@ -1,7 +1,11 @@
 import Link from "next/link";
 import Heading from "@/components/Heading";
+import { getReviews } from "@/lib/reviews";
 
-export default function ReviewsPage() {
+async function ReviewsPage() {
+  const reviews = await getReviews();
+  console.log(reviews);
+
   return (
     <>
       <Heading>Reviews</Heading>
@@ -38,3 +42,5 @@ export default function ReviewsPage() {
     </>
   );
 }
+
+export default ReviewsPage;

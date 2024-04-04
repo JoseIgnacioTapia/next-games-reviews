@@ -18,7 +18,7 @@ async function ReviewPage(props: ReviewPageProps) {
       <Heading>{review.title}</Heading>
       <p className="pb-2 italic">{review.date}</p>
       <img
-        src="/images/stardew-valley.jpg"
+        src={review.image}
         alt=""
         width="640"
         height="360"

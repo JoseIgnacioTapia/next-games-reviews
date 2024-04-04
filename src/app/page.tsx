@@ -2,8 +2,6 @@ import Link from "next/link";
 import Heading from "@/components/Heading";
 
 export default function HomePage() {
-  console.log("[HomePage] rendering");
-
   return (
     <>
       <Heading>Indie Gamer</Heading>
@@ -27,11 +25,11 @@ export default function HomePage() {
       </div>
       <div className="bg-white w-80 border rounded shadow hover:shadow-xl sm:w-full">
         <Link
-          href="/reviews/hallow-knight"
+          href="/reviews/hollow-knight"
           className="flex flex-col sm:flex-row"
         >
           <img
-            src="/images/hallow-knight.jpg"
+            src="/images/hollow-knight.jpg"
             alt=""
             width="320"
             height="180"
