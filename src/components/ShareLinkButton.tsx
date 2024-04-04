@@ -1,5 +1,3 @@
-"use client";
-
 function ShareLinkButton() {
   const handleClick = () => {
     console.log("Hi!");
