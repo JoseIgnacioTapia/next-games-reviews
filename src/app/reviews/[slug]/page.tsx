@@ -1,11 +1,16 @@
 import Heading from "@/components/Heading";
-import { getReview } from "@/lib/reviews";
+import { getReview, getSlugs } from "@/lib/reviews";
 
 interface ReviewPageProps {
   params: {
     slug: string; // El valor del slug, en este caso 'hollow-knight'
   };
   searchParams: Record<string, string>; // Un objeto vacío en este caso
+}
+
+export async function generateStaticParams() {
+  const slugs = await getSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 async function ReviewPage(props: ReviewPageProps) {

@@ -14,10 +14,7 @@ export async function getReview(slug: string) {
 }
 
 export async function getReviews() {
-  const files = await readdir("./src/content/reviews");
-  const slugs = files
-    .filter((file) => file.endsWith(".md"))
-    .map((file) => file.replace(".md", ""));
+  const slugs = await getSlugs();
   const reviews = [];
 
   for (const slug of slugs) {
@@ -26,4 +23,12 @@ export async function getReviews() {
   }
 
   return reviews;
+}
+
+export async function getSlugs() {
+  const files = await readdir("./content/reviews");
+
+  return files
+    .filter((file) => file.endsWith(".md"))
+    .map((file) => file.replace(".md", ""));
 }
