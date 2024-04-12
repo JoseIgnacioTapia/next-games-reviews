@@ -28,6 +28,7 @@ async function ReviewPage(props: ReviewPageProps) {
   const { slug } = props.params;
 
   const review = await getReview(slug);
+  console.log("Review Page: ", review);
 
   return (
     <>
