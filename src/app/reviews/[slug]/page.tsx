@@ -30,6 +30,8 @@ async function ReviewPage(props: ReviewPageProps) {
   const review = await getReview(slug);
   console.log("Review Page: ", review);
 
+  const body = typeof review.body === "string" ? review.body : "";
+
   return (
     <>
       <Heading>{review.title}</Heading>
@@ -45,7 +47,7 @@ async function ReviewPage(props: ReviewPageProps) {
         className="mb-2 rounded"
       />
       <article
-        dangerouslySetInnerHTML={{ __html: review.body }}
+        dangerouslySetInnerHTML={{ __html: body }}
         className="max-w-screen-sm prose prose-slate"
       />
     </>

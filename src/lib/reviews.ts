@@ -2,15 +2,16 @@ import { readFile, readdir } from "node:fs/promises";
 import { marked } from "marked";
 import matter from "gray-matter";
 import qs from "qs";
+import { Game, GameAttributes, ImageData, ReviewData } from "../types/index";
 
 const CMS_URL = "http://localhost:1337";
 
-export async function getFeaturedReview() {
+export async function getFeaturedReview(): Promise<GameAttributes> {
   const reviews = await getReviews();
   return reviews[0];
 }
 
-export async function getReview(slug: string) {
+export async function getReview(slug: string): Promise<ReviewData> {
   const { data } = await fetchReviews({
     filters: { slug: { $eq: slug } },
     fields: ["slug", "title", "subtitle", "publishedAt", "body"],
@@ -29,7 +30,7 @@ export async function getReview(slug: string) {
   };
 }
 
-export async function getReviews() {
+export async function getReviews(): Promise<GameAttributes[]> {
   const { data } = await fetchReviews({
     fields: ["slug", "title", "subtitle", "publishedAt"],
     populate: { image: { fields: ["url"] } },
@@ -40,7 +41,7 @@ export async function getReviews() {
   return data.map(toReview);
 }
 
-export async function getSlugs() {
+export async function getSlugs(): Promise<string[]> {
   const files = await readdir("./src/content/reviews");
 
   return files
@@ -48,7 +49,7 @@ export async function getSlugs() {
     .map((file) => file.replace(".md", ""));
 }
 
-async function fetchReviews(parameters) {
+async function fetchReviews(parameters: any): Promise<any> {
   const url =
     `${CMS_URL}/api/reviews?` +
     qs.stringify(parameters, { encodeValuesOnly: true });
@@ -64,13 +65,14 @@ async function fetchReviews(parameters) {
   return await response.json();
 }
 
-function toReview(item) {
+function toReview(item: any): ReviewData {
   const { attributes } = item;
+  const image: ImageData = attributes.image.data;
 
   return {
     slug: attributes.slug,
     title: attributes.title,
     date: attributes.publishedAt.slice(0, "yyyy-mm-dd".length),
-    image: CMS_URL + attributes.image.data.attributes.url,
+    image: CMS_URL + image.attributes.url,
   };
 }
