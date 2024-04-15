@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Heading from "@/components/Heading";
 import ShareButtons from "@/components/ShareButtons";
 import { getReview, getSlugs } from "@/lib/reviews";
@@ -41,7 +42,7 @@ async function ReviewPage(props: ReviewPageProps) {
         <p className="pb-2 italic">{review.date}</p>
         <ShareButtons />
       </div>
-      <img
+      <Image
         src={review.image}
         alt=""
         width="640"
