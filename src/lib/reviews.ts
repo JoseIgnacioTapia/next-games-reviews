@@ -19,7 +19,7 @@ export async function getReview(slug: string): Promise<ReviewData> {
     pagination: { pageSize: 1, withCount: false },
   });
   const item = data[0];
-  console.log(item);
+  // console.log(item);
 
   return {
     ...toReview(item),
@@ -42,21 +42,23 @@ export async function getReviews(): Promise<GameAttributes[]> {
 }
 
 export async function getSlugs(): Promise<string[]> {
-  const files = await readdir("./src/content/reviews");
+  const { data } = await fetchReviews({
+    fields: ["slug"],
+    sort: ["publishedAt:desc"],
+    pagination: { pageSize: 100 },
+  });
 
-  return files
-    .filter((file) => file.endsWith(".md"))
-    .map((file) => file.replace(".md", ""));
+  return data.map((item: any) => item.attributes.slug);
 }
 
 async function fetchReviews(parameters: any): Promise<any> {
   const url =
     `${CMS_URL}/api/reviews?` +
     qs.stringify(parameters, { encodeValuesOnly: true });
-  console.log("fetchReviews:", url);
+  // console.log("fetchReviews:", url);
 
   const response = await fetch(url);
-  console.log(response);
+  // console.log(response);
 
   if (!response.ok) {
     throw new Error(`CMS returned error: ${response.status} for ${url}`);

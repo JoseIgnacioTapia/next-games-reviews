@@ -11,6 +11,8 @@ interface ReviewPageProps {
 
 export async function generateStaticParams() {
   const slugs = await getSlugs();
+  console.log("[ReviewPage] slugs:", slugs);
+
   return slugs.map((slug) => ({ slug }));
 }
 
@@ -28,7 +30,7 @@ async function ReviewPage(props: ReviewPageProps) {
   const { slug } = props.params;
 
   const review = await getReview(slug);
-  console.log("Review Page: ", review);
+  // console.log("Review Page: ", review);
 
   const body = typeof review.body === "string" ? review.body : "";
 
