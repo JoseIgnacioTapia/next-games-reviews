@@ -22,7 +22,7 @@ async function ReviewsPage() {
           >
             <Link href={`/reviews/${review.slug}`}>
               <Image
-                src={review.image}
+                src={typeof review.image === "string" ? review.image : ""}
                 alt=""
                 priority={index === 0}
                 width="320"
