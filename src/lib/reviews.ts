@@ -6,10 +6,10 @@ import { Game, GameAttributes, ImageData, ReviewData } from "../types/index";
 
 const CMS_URL = "http://localhost:1337";
 
-export async function getFeaturedReview(): Promise<GameAttributes> {
-  const reviews = await getReviews();
-  return reviews[0];
-}
+// export async function getFeaturedReview(): Promise<GameAttributes> {
+//   const reviews = await getReviews();
+//   return reviews[0];
+// }
 
 export async function getReview(slug: string): Promise<ReviewData> {
   const { data } = await fetchReviews({
@@ -30,12 +30,12 @@ export async function getReview(slug: string): Promise<ReviewData> {
   };
 }
 
-export async function getReviews(): Promise<GameAttributes[]> {
+export async function getReviews(pageSize: number): Promise<GameAttributes[]> {
   const { data } = await fetchReviews({
     fields: ["slug", "title", "subtitle", "publishedAt"],
     populate: { image: { fields: ["url"] } },
     sort: ["publishedAt:desc"],
-    pagination: { pageSize: 6 },
+    pagination: { pageSize },
   });
 
   return data.map(toReview);
