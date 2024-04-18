@@ -11,13 +11,16 @@ const CMS_URL = "http://localhost:1337";
 //   return reviews[0];
 // }
 
-export async function getReview(slug: string): Promise<ReviewData> {
+export async function getReview(slug: string): Promise<ReviewData | null> {
   const { data } = await fetchReviews({
     filters: { slug: { $eq: slug } },
     fields: ["slug", "title", "subtitle", "publishedAt", "body"],
     populate: { image: { fields: ["url"] } },
     pagination: { pageSize: 1, withCount: false },
   });
+  if (data.length === 0) {
+    return null;
+  }
   const item = data[0];
   // console.log(item);
 

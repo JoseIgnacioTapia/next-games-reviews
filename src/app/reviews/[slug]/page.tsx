@@ -2,6 +2,7 @@ import Image from "next/image";
 import Heading from "@/components/Heading";
 import ShareButtons from "@/components/ShareButtons";
 import { getReview, getSlugs } from "@/lib/reviews";
+import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
@@ -23,6 +24,9 @@ export async function generateMetadata(props: ReviewPageProps) {
   const { slug } = props.params;
 
   const review = await getReview(slug);
+  if (!review) {
+    notFound();
+  }
 
   return {
     title: review.title,
@@ -33,7 +37,10 @@ async function ReviewPage(props: ReviewPageProps) {
   const { slug } = props.params;
 
   const review = await getReview(slug);
-  console.log("Review Page: ", slug);
+  if (!review) {
+    notFound();
+  }
+  // console.log("Review Page: ", slug);
 
   const body = typeof review.body === "string" ? review.body : "";
 
