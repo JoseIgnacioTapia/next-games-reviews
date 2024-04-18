@@ -24,6 +24,7 @@ export interface Game {
 export interface ReviewData {
   slug: string;
   title: string;
+  subtitle: string;
   date: string;
   image: string;
   body?: string | Promise<string>;

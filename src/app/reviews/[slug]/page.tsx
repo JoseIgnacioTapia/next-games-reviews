@@ -3,6 +3,8 @@ import Heading from "@/components/Heading";
 import ShareButtons from "@/components/ShareButtons";
 import { getReview, getSlugs } from "@/lib/reviews";
 
+export const dynamic = "force-dynamic";
+
 interface ReviewPageProps {
   params: {
     slug: string; // El valor del slug, en este caso 'hollow-knight'
@@ -10,12 +12,12 @@ interface ReviewPageProps {
   searchParams: Record<string, string>; // Un objeto vacío en este caso
 }
 
-export async function generateStaticParams() {
-  const slugs = await getSlugs();
-  console.log("[ReviewPage] slugs:", slugs);
+// export async function generateStaticParams() {
+//   const slugs = await getSlugs();
+//   console.log("[ReviewPage] slugs:", slugs);
 
-  return slugs.map((slug) => ({ slug }));
-}
+//   return slugs.map((slug) => ({ slug }));
+// }
 
 export async function generateMetadata(props: ReviewPageProps) {
   const { slug } = props.params;
@@ -31,13 +33,14 @@ async function ReviewPage(props: ReviewPageProps) {
   const { slug } = props.params;
 
   const review = await getReview(slug);
-  // console.log("Review Page: ", review);
+  console.log("Review Page: ", slug);
 
   const body = typeof review.body === "string" ? review.body : "";
 
   return (
     <>
       <Heading>{review.title}</Heading>
+      <p className="font-semibold pb-3">{review.subtitle}</p>
       <div className="flex gap-3 items-baseline">
         <p className="pb-2 italic">{review.date}</p>
         <ShareButtons />
