@@ -4,7 +4,7 @@ import ShareButtons from "@/components/ShareButtons";
 import { getReview, getSlugs } from "@/lib/reviews";
 import { notFound } from "next/navigation";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 
 interface ReviewPageProps {
   params: {
@@ -13,12 +13,12 @@ interface ReviewPageProps {
   searchParams: Record<string, string>; // Un objeto vacío en este caso
 }
 
-// export async function generateStaticParams() {
-//   const slugs = await getSlugs();
-//   console.log("[ReviewPage] slugs:", slugs);
+export async function generateStaticParams() {
+  const slugs = await getSlugs();
+  // console.log("[ReviewPage] slugs:", slugs);
 
-//   return slugs.map((slug) => ({ slug }));
-// }
+  return slugs.map((slug) => ({ slug }));
+}
 
 export async function generateMetadata(props: ReviewPageProps) {
   const { slug } = props.params;
