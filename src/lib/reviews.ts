@@ -60,7 +60,12 @@ async function fetchReviews(parameters: any): Promise<any> {
     qs.stringify(parameters, { encodeValuesOnly: true });
   // console.log("fetchReviews:", url);
 
-  const response = await fetch(url);
+  const response = await fetch(url, {
+    // cache: "no-store",
+    next: {
+      revalidate: 30, // seconds
+    },
+  });
   // console.log(response);
 
   if (!response.ok) {
