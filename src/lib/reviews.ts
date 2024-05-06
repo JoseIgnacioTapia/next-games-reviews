@@ -4,6 +4,8 @@ import matter from "gray-matter";
 import qs from "qs";
 import { Game, GameAttributes, ImageData, ReviewData } from "../types/index";
 
+export const CACHE_TAG_REVIEWS = "reviews";
+
 const CMS_URL = "http://localhost:1337";
 
 // export async function getFeaturedReview(): Promise<GameAttributes> {
@@ -63,7 +65,8 @@ async function fetchReviews(parameters: any): Promise<any> {
   const response = await fetch(url, {
     // cache: "no-store",
     next: {
-      revalidate: 30, // seconds
+      // revalidate: 30, // seconds
+      tags: [CACHE_TAG_REVIEWS],
     },
   });
   // console.log(response);
