@@ -38,15 +38,18 @@ export async function getReview(slug: string): Promise<ReviewData | null> {
 export async function getReviews(
   pageSize: number,
   page: number = 1
-): Promise<GameAttributes[]> {
-  const { data } = await fetchReviews({
+): Promise<{ pageCount: number; reviews: GameAttributes[] }> {
+  const { data, meta } = await fetchReviews({
     fields: ["slug", "title", "subtitle", "publishedAt"],
     populate: { image: { fields: ["url"] } },
     sort: ["publishedAt:desc"],
     pagination: { pageSize, page },
   });
 
-  return data.map(toReview);
+  return {
+    pageCount: meta.pagination.pageCount,
+    reviews: data.map(toReview),
+  };
 }
 
 export async function getSlugs(): Promise<string[]> {

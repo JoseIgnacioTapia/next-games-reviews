@@ -9,11 +9,11 @@ const url =
       fields: ["slug", "title", "subtitle", "publishedAt"],
       populate: { image: { fields: ["url"] } },
       sort: ["publishedAt:desc"],
-      pagination: { pageSize: 6 },
+      pagination: { pageSize: 6, page: 1 },
     },
     { encodeValuesOnly: true }
   );
-
+console.log("url", url);
 const response = await fetch(url);
 const data = await response.json();
 const formatted = JSON.stringify(data, null, 2);
