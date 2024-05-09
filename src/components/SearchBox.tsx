@@ -1,13 +1,9 @@
 "use client";
 
-import { Combobox } from "@headlessui/react";
+import { Input } from "@headlessui/react";
 
 function SearchBox() {
-  return (
-    <Combobox>
-      <Combobox.Input placeholder="Search..." />
-    </Combobox>
-  );
+  return <Input placeholder="Search..." />;
 }
 
 export default SearchBox;
