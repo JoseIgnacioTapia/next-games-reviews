@@ -17,9 +17,11 @@ interface ReviewsPageProps {
   };
 }
 
+const PAGE_SIZE = 6;
+
 async function ReviewsPage({ searchParams }: ReviewsPageProps) {
   const page = parsePageParams(searchParams.page);
-  const reviews = await getReviews(6);
+  const reviews = await getReviews(PAGE_SIZE, page);
 
   console.log("ReviewsPage rendering:", page);
 

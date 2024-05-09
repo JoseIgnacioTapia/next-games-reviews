@@ -35,12 +35,15 @@ export async function getReview(slug: string): Promise<ReviewData | null> {
   };
 }
 
-export async function getReviews(pageSize: number): Promise<GameAttributes[]> {
+export async function getReviews(
+  pageSize: number,
+  page: number = 1
+): Promise<GameAttributes[]> {
   const { data } = await fetchReviews({
     fields: ["slug", "title", "subtitle", "publishedAt"],
     populate: { image: { fields: ["url"] } },
     sort: ["publishedAt:desc"],
-    pagination: { pageSize },
+    pagination: { pageSize, page },
   });
 
   return data.map(toReview);
