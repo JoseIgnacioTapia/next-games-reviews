@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Heading from "@/components/Heading";
 import { getReviews } from "@/lib/reviews";
+import PaginationBar from "@/components/PaginationBar";
 
 // export const dynamic = "force-dynamic";
 // export const revalidate = 30; // seconds
@@ -28,13 +29,7 @@ async function ReviewsPage({ searchParams }: ReviewsPageProps) {
   return (
     <>
       <Heading>Reviews</Heading>
-      <div className="flex gap-2 pb-3">
-        <Link href={`/reviews?page=${page - 1}`}>&lt;</Link>
-        <span>
-          Page {page} of {pageCount}
-        </span>
-        <Link href={`/reviews?page=${page + 1}`}>&gt;</Link>
-      </div>
+      <PaginationBar href="/reviews" page={page} pageCount={pageCount} />
       <ul className="flex flex-row flex-wrap gap-3">
         {reviews.map((review, index) => (
           <li
